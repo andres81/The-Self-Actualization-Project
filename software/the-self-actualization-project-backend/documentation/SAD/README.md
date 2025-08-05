@@ -4,10 +4,5 @@ by <a href="https://www.andreschepers.nl">André Schepers</a> is licensed
 under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY
 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
 
-# The Self-Actualization Project
-
-Project aiming to provide an online platform for self-actualization.
-
-The best starting point to the documentation
-is: [README](./documentation/README.md).
+# Software Architectural Document
 

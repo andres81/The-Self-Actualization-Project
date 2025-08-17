@@ -4,7 +4,7 @@ by <a href="https://www.andreschepers.nl">André Schepers</a> is licensed
 under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY
 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
 
-# The Self-Actualization Project Software Component
+# User Management
 
 ## Table of Contents
 
@@ -17,42 +17,12 @@ under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY
 
 <details>
 
-The software will consist of two parts: An application run in the users
-browser and an application connected to the internet that serves as the
-information provider of the browser application. The benefits are among so
-many others, of course:
-
-* Availability:
-    * Mobile phones
-    * Laptop devices
-    * Internet access is available everywhere these days
-* Central storage point
-* Ease of sharing content
-
-Using Domain Driven Design (DDD) to visualize this setup, we first discern two
-subdomains:
-
-* The frontend, the application running in the browser
-* The backend, the application running standalone and connected to the internet
-
-![system overview](images/the-self-actualization-project-software-system-overview.jpg)
-
-The idea is that the base implementation of the Single Page Application (SPA)
-that is the frontend, and the webserver with API, will implement all the basic
-needs like authentication/authorization, security, database connectivity,
-logging, etc... Any module, that is a tool in itself, for example the dialogue
-trainer can be easily added then to the software component, while it will
-itself remain light and easy to implement.
 
 </details>
 
 ## Software Design
 
 <details>
-
-Following UP, use cases will be described first in the process of creating this
-software. In parallel, domain rules will be written down as well as the vision of
-this project.
 
 For the software design, several methodologies are used:
 
@@ -68,16 +38,6 @@ Following UP, use cases will be described first in the process of creating this
 software. In parallel, domain rules will be written down as well as the vision
 of
 this project.
-
-    Agile Scrum is not a software development methodology in itself,
-    as it is more of a project management tool instead, in the authors opinion.
-    Unfortunately, the experience of the author learns that many people actually
-    believe Scrum in itself gets you high quality software. Combine that with
-    software programmers posing / presenting themselves as software engineers,
-    while knowing nothing about software design, and you end up in the situation
-    of poor software maintenance / evolution.
-    ( The author considers himself merely a student at this point in his career
-    of software engineering )
 
 </details>
 

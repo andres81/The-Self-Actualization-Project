@@ -32,34 +32,6 @@ the [Vision document](Vision.md) is available.
 
 ## Documentation setup
 
-## Software Development
-
-### Software Design
-
-For the software design, several methodologies are used:
-
-* [Unified Process](https://en.wikipedia.org/wiki/Unified_process) (UP)
-* [Domain-Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design)
-  (DDD)
-* [Systems engineering](https://en.wikipedia.org/wiki/Systems_engineering)
-  MIT [style](https://learn-xpro.mit.edu/systems-engineering) using
-  [Object Process Methodology](https://en.wikipedia.org/wiki/Object_Process_Methodology)
-
-
-    Agile Scrum is not a software development methodology in itself,
-    as it is more of a project management tool instead, in the authors opinion.
-    Unfortunately, the experience of the author learns that many people actually
-    believe Scrum in itself gets you high quality software. Combine that with
-    software programmers posing / presenting themselves as software engineers,
-    while knowing nothing about software design, and you end up in the situation
-    of poor software maintenance / evolution.
-    ( The author considers himself merely a student at this point in his career
-    of software engineering )
-
-Following UP, use cases will be described first in the process of creating this
-software. In parallel, domain rules will be written down as well as the vision of
-this project.
-
 ## Book references
 
 | Title                                                                                                        | Subjects covered                                                                                                                                          |

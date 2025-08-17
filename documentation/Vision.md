@@ -21,6 +21,12 @@ the [World Wide Web](https://en.wikipedia.org/wiki/World_Wide_Web),
 through which an individual can keep track of one's progress, but also do the
 self-actualization itself.
 
+An important pillar of self-actualization is education. A wonderful and very
+effective way to educate people, is using software. But software is not enough.
+Having a reference, a set of tutorials, and a single project focussing on the
+concept of self-actualizing human beings, as cheap as possible, is necessary to
+get the job done right.
+
 ## The Software Component
 
 The software component consists of two parts.

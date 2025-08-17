@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
-package nl.andreschepers.the_self_actualization_project.authentication.api.exceptionhandling;
+package nl.andreschepers.the_self_actualization_project.authentication.api.dto;
 
-public record AuthenticationErrorDto(String errorMessage) {}
+import jakarta.validation.constraints.NotNull;
+
+public record LoginRequestDto(@NotNull String googleIdToken) {}

@@ -6,6 +6,11 @@ under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY
 
 # The Self-Actualization Project Backend
 
+## Table of Contents
+
+* Introduction
+* Architecture Overview
+
 ## Introduction
 
 The backend component is used to store state in the database of users, handle
@@ -47,4 +52,13 @@ Bounded contexts:
 * Authorization Server
 * User management
 * Admin system
-* 
+
+### Functional architecture: Software Design
+
+Software design can be done in many ways. Within this project, the choice was
+made to use Unified Process (UP) and Domain-Driven Design (DDD). With DDD
+separate components can be described as Bounded Contexts, while with UP the
+usage of the system, and subcomponents can be easily described and visualized.
+Furthermore, using Object Process Methodology its Object Process Model, another
+great view can be created of the functionality desired of the system.
+

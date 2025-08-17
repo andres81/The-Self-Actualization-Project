@@ -14,29 +14,30 @@
  * limitations under the License.
  */
 
-package nl.andreschepers.the_self_actualization_project.authentication.google;
+package nl.andreschepers.the_self_actualization_project.authentication.service;
 
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import nl.andreschepers.the_self_actualization_project.authentication.google.GoogleIdTokenVerifierService;
 import nl.andreschepers.the_self_actualization_project.authentication.google.dto.GoogleIDTokenDto;
 import nl.andreschepers.the_self_actualization_project.authentication.jwt.JWTService;
 import nl.andreschepers.the_self_actualization_project.authentication.jwt.dto.JWTAccessRefreshTokenPairDto;
 import nl.andreschepers.the_self_actualization_project.user.service.UserService;
 import org.springframework.stereotype.Service;
 
-/**
- * <a href="https://developers.google.com/identity/gsi/web/guides/verify-google-id-token">Google
- * guide on verifying token from Google.</a>
- */
 @Service
 @RequiredArgsConstructor
-public class GoogleUserLoginService {
+public class LoginService {
 
   private final GoogleIdTokenVerifierService googleIdTokenVerifierService;
   private final UserService userService;
   private final JWTService jwtService;
 
-  public Optional<JWTAccessRefreshTokenPairDto> login(String googleIdToken) {
+  /**
+   * <a href="https://developers.google.com/identity/gsi/web/guides/verify-google-id-token">Google
+   * guide on verifying token from Google.</a>
+   */
+  public Optional<JWTAccessRefreshTokenPairDto> googleLogin(String googleIdToken) {
     return googleIdTokenVerifierService
         .processGoogleIdToken(googleIdToken)
         .map(GoogleIDTokenDto::subject)

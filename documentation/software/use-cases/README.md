@@ -4,7 +4,7 @@ by <a href="https://www.andreschepers.nl">André Schepers</a> is licensed
 under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY
 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
 
-# Auth Server Use Cases
+# The Self-Actualization Project Software Use Cases
 
 This document will give an overview of use cases implemented by this software
 component. The use cases will be given in brief format. Dedicated files are

@@ -14,42 +14,38 @@
  * limitations under the License.
  */
 
-package nl.andreschepers.the_self_actualization_project.authentication.api.google;
+package nl.andreschepers.the_self_actualization_project.authentication.api.login;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import nl.andreschepers.the_self_actualization_project.authentication.api.dto.AccessTokenResponseDto;
 import nl.andreschepers.the_self_actualization_project.authentication.api.exception.UnAuthorizedException;
-import nl.andreschepers.the_self_actualization_project.authentication.api.google.dto.LoginRequestDto;
+import nl.andreschepers.the_self_actualization_project.authentication.api.dto.LoginRequestDto;
 import nl.andreschepers.the_self_actualization_project.authentication.api.util.CookieUtil;
-import nl.andreschepers.the_self_actualization_project.authentication.google.GoogleUserLoginService;
+import nl.andreschepers.the_self_actualization_project.authentication.service.LoginService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Slf4j
 @RestController
+@RequestMapping("/api/auth/login")
 @RequiredArgsConstructor
-@RequestMapping("/api/auth/google")
-@Validated
-public class GoogleAuthenticationController {
+public class LoginController {
 
-  private final GoogleUserLoginService googleUserLoginService;
+  private final LoginService loginService;
   private final CookieUtil cookieUtil;
 
-  @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(value = "/google", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<AccessTokenResponseDto> googleAuthTokenEndpoint(
       @RequestBody @NotNull LoginRequestDto loginRequestDto) {
 
     var accessRefreshTokenPair =
-        googleUserLoginService
-            .login(loginRequestDto.googleIdToken())
+        loginService
+            .googleLogin(loginRequestDto.googleIdToken())
             .orElseThrow(UnAuthorizedException::new);
 
     var cookie = cookieUtil.createRefreshTokenCookie(accessRefreshTokenPair.refreshToken());

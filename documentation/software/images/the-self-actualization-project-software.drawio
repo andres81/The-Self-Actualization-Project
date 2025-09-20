@@ -4,6 +4,9 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="c8flQg7FPdX3u2bWQ-xX-25" value="" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="460" width="830" height="300" as="geometry" />
+        </mxCell>
         <mxCell id="c8flQg7FPdX3u2bWQ-xX-1" value="The Self Actualisation&lt;br&gt;Project&lt;br&gt;Software" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="360" y="180" width="120" height="60" as="geometry" />
         </mxCell>
@@ -78,6 +81,39 @@
             <mxPoint x="810" y="610" as="sourcePoint" />
             <mxPoint x="1090" y="700" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="c8flQg7FPdX3u2bWQ-xX-26" value="BC: Authentication System" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=light-dark(#000000,#00CC00);" vertex="1" parent="1">
+          <mxGeometry x="546" y="720" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c8flQg7FPdX3u2bWQ-xX-27" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="80" y="290" as="sourcePoint" />
+            <mxPoint x="1240" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c8flQg7FPdX3u2bWQ-xX-28" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="81" y="800" as="sourcePoint" />
+            <mxPoint x="1241" y="800" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c8flQg7FPdX3u2bWQ-xX-29" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="81" y="440" as="sourcePoint" />
+            <mxPoint x="1241" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c8flQg7FPdX3u2bWQ-xX-30" value="Cloud Level" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="200" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c8flQg7FPdX3u2bWQ-xX-31" value="Clam Level" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=0" vertex="1" parent="1">
+          <mxGeometry x="1140" y="830" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c8flQg7FPdX3u2bWQ-xX-32" value="Kite Level" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1150" y="350" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c8flQg7FPdX3u2bWQ-xX-33" value="Sea Level&lt;div&gt;(User Goal)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="585" width="80" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

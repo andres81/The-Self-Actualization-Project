@@ -12,6 +12,10 @@ given for fully dressed format use cases.
 
 ## Use Cases
 
+### Goal Level Diagram
+
+![Goal Level Diagram](../../images/Use-Cases-Goal-Level-Diagram.jpg)
+
 ### UC1 - User login
 
 Given a subject id, a user is retrieved from the database. If user is not found,

@@ -15,4 +15,9 @@ under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY
 
 ## Fully Dressed Format Use Case Description
 
-1. 
+1. User chooses to log in on the website of the project
+2. The user is presented the choice of which provider to choose to log in with
+   (Google, Facebook...)
+3. Upon choosing, the user starts the login flow with the selected provider
+
+1. User starts the Google login 

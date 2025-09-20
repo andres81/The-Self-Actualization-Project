@@ -17,6 +17,16 @@ under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY
 
 <details>
 
+This project is being developed using
+[Unified process](https://en.wikipedia.org/wiki/Unified_process) (UP),
+[Domain-driven design](https://en.wikipedia.org/wiki/Domain-driven_design)
+(DDD) and
+[Systems engineering](https://en.wikipedia.org/wiki/Systems_engineering)
+([MIT](https://learn-xpro.mit.edu/systems-engineering)).
+From the systems engineering domain, also
+the [Object Process Methodology](https://en.wikipedia.org/wiki/Object_Process_Methodology)
+is used.
+
 The software will consist of two parts: An application run in the users
 browser and an application connected to the internet that serves as the
 information provider of the browser application. The benefits are among so

@@ -14,15 +14,7 @@ under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY
 
 ## Introduction
 
-This is the starting point for a reader to get familiar with the project. This
-project is being developed
-using [Unified process](https://en.wikipedia.org/wiki/Unified_process) (UP),
-[Domain-driven design](https://en.wikipedia.org/wiki/Domain-driven_design) (DDD)
-and [Systems engineering](https://en.wikipedia.org/wiki/Systems_engineering)
-([MIT](https://learn-xpro.mit.edu/systems-engineering)). From the systems
-engineering domain, also
-the [Object Process Methodology](https://en.wikipedia.org/wiki/Object_Process_Methodology)
-is used.
+This is the starting point for a reader to get familiar with the project.
 
 For a quick introduction to the motivation for and the goals that are tried to
 be achieved with this project, the UP artifact called
@@ -31,10 +23,3 @@ the [Vision document](Vision.md) is available.
 ## Project setup
 
 ## Documentation setup
-
-## Book references
-
-| Title                                                                                                        | Subjects covered                                                                                                                                          |
-|--------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Applying UML and Patterns](https://www.craiglarman.com/wiki/index.php?title=Book_Applying_UML_and_Patterns) | [Unified Process](https://en.wikipedia.org/wiki/Unified_process)<br/>[Unified Modeling Language](https://en.wikipedia.org/wiki/Unified_Modeling_Language) |
-| [Implementing Domain-Driven Design](https://vaughnvernon.com/)                                                                                                         | [Domain-driven design](https://en.wikipedia.org/wiki/Domain-driven_design)                                                                                                                                                          |

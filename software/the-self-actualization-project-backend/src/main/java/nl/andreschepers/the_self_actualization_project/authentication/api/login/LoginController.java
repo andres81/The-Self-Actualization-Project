@@ -19,13 +19,13 @@ package nl.andreschepers.the_self_actualization_project.authentication.api.login
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import nl.andreschepers.the_self_actualization_project.authentication.api.dto.AccessTokenResponseDto;
-import nl.andreschepers.the_self_actualization_project.authentication.api.exception.UnAuthorizedException;
 import nl.andreschepers.the_self_actualization_project.authentication.api.dto.LoginRequestDto;
 import nl.andreschepers.the_self_actualization_project.authentication.api.util.CookieUtil;
-import nl.andreschepers.the_self_actualization_project.authentication.service.LoginService;
+import nl.andreschepers.the_self_actualization_project.authentication.login.LoginService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,10 +43,7 @@ public class LoginController {
   public ResponseEntity<AccessTokenResponseDto> googleAuthTokenEndpoint(
       @RequestBody @NotNull LoginRequestDto loginRequestDto) {
 
-    var accessRefreshTokenPair =
-        loginService
-            .googleLogin(loginRequestDto.googleIdToken())
-            .orElseThrow(UnAuthorizedException::new);
+    var accessRefreshTokenPair = loginService.googleLogin(loginRequestDto.googleIdToken());
 
     var cookie = cookieUtil.createRefreshTokenCookie(accessRefreshTokenPair.refreshToken());
 

@@ -25,10 +25,12 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nl.andreschepers.the_self_actualization_project.authentication.google.dto.GoogleIDTokenDto;
 import nl.andreschepers.the_self_actualization_project.authentication.google.exception.EAuthenticationExceptionType;
 import nl.andreschepers.the_self_actualization_project.authentication.google.exception.GoogleIdTokenVerifierServiceException;
+import nl.andreschepers.the_self_actualization_project.configuration.properties.AuthenticationConfigProperties;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -37,17 +39,17 @@ public class GoogleIdTokenVerifierService {
 
   private final GoogleIdTokenVerifier verifier;
 
-  public GoogleIdTokenVerifierService() {
+  public GoogleIdTokenVerifierService(AuthenticationConfigProperties authProps) {
     this.verifier =
         new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
             // Specify the WEB_CLIENT_ID of the app that accesses the backend:
-            .setAudience(Collections.singletonList("WEB_CLIENT_ID"))
+            .setAudience(Collections.singletonList(authProps.googleClientAudience()))
             // Or, if multiple clients access the backend:
             // .setAudience(Arrays.asList(WEB_CLIENT_ID_1, WEB_CLIENT_ID_2, WEB_CLIENT_ID_3))
             .build();
   }
 
-  public Optional<GoogleIDTokenDto> processGoogleIdToken(String idTokenString) {
+  public GoogleIDTokenDto processGoogleIdToken(String idTokenString) {
 
     // (Receive idTokenString by HTTPS POST)
 
@@ -64,11 +66,11 @@ public class GoogleIdTokenVerifierService {
     Payload payload;
     if (idToken == null || idToken.getPayload() == null) {
       log.info("Could not verify Google Id token with Google, returned id token not processable.");
-      return Optional.empty();
+      throw new IllegalStateException("No google login success.");
     }
 
     payload = idToken.getPayload();
-    var googleIdTokenDto = new GoogleIDTokenDto(payload.getSubject());
+    var googleIdTokenDto = new GoogleIDTokenDto(payload.getSubject(), payload.getEmail());
 
     // Print user identifier
     String userId = payload.getSubject();
@@ -76,7 +78,7 @@ public class GoogleIdTokenVerifierService {
 
     // Get profile information from payload
     String email = payload.getEmail();
-    boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+    boolean emailVerified = payload.getEmailVerified();
     String name = (String) payload.get("name");
     String pictureUrl = (String) payload.get("picture");
     String locale = (String) payload.get("locale");
@@ -85,6 +87,7 @@ public class GoogleIdTokenVerifierService {
 
     // Use or store profile information
     // ...
-    return Optional.of(googleIdTokenDto);
+
+    return googleIdTokenDto;
   }
 }

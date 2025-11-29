@@ -45,7 +45,7 @@ subdomains:
 * The frontend, the application running in the browser
 * The backend, the application running standalone and connected to the internet
 
-![system overview](images/the-self-actualization-project-software-system-overview.jpg)
+![system overview](foundation-layer/images/the-self-actualization-project-software-system-overview.jpg)
 
 The idea is that the base implementation of the Single Page Application (SPA)
 that is the frontend, and the webserver with API, will implement all the basic

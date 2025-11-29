@@ -17,13 +17,12 @@
 package nl.andreschepers.the_self_actualization_project.user.data;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
+import nl.andreschepers.the_self_actualization_project.common.UUIDV7Id;
 
 @Entity
 @Table(name = "user_account")
@@ -31,15 +30,11 @@ import lombok.Setter;
 @Setter
 public class UserEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private UUID id;
+  @Id @UUIDV7Id private UUID id;
 
   private String subject;
 
-  private String userName;
-
-  private String fullName;
+  private String username;
 
   private String email;
 }

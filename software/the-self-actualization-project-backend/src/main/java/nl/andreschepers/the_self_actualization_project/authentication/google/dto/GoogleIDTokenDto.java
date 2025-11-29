@@ -16,4 +16,4 @@
 
 package nl.andreschepers.the_self_actualization_project.authentication.google.dto;
 
-public record GoogleIDTokenDto(String subject) {}
+public record GoogleIDTokenDto(String subject, String email) {}

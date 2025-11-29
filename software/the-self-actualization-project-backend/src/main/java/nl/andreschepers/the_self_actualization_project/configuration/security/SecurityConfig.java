@@ -16,17 +16,15 @@
 
 package nl.andreschepers.the_self_actualization_project.configuration.security;
 
-import com.nimbusds.jose.util.StandardCharset;
+import java.util.Base64;
 import javax.crypto.spec.SecretKeySpec;
 import lombok.RequiredArgsConstructor;
 import nl.andreschepers.the_self_actualization_project.configuration.properties.AuthenticationConfigProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
-import org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -47,37 +45,35 @@ public class SecurityConfig implements WebMvcConfigurer {
   @Override
   public void addCorsMappings(CorsRegistry registry) {
     registry
-        .addMapping("/**")
-        .allowedOrigins("http://localhost:3000")
-        .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD");
+        .addMapping("/api/**")
+        .allowCredentials(true)
+        .allowedOrigins("http://localhost:3000", "http://127.0.0.1:3000")
+        .allowedHeaders("*")
+        .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS");
   }
 
   @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    // @formatter:off
+  public SecurityFilterChain filterChainAuthenticatedEndpoints(HttpSecurity http) throws Exception {
     http.csrf((csrf) -> csrf.ignoringRequestMatchers("/api/**"))
-        .sessionManagement(this::sessionManagementConfiguration)
-        .authorizeHttpRequests(this::authorizeHttpRequestsConfiguration)
-        .oauth2ResourceServer(this::oAuth2ResourceServerConfiguration);
-    // @formatter:on
+        .cors(Customizer.withDefaults())
+        .sessionManagement(
+            session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .authorizeHttpRequests(
+            auth -> {
+              auth
+                  .requestMatchers("/api/auth/**")
+                  .permitAll()
+                  .requestMatchers("/api/**")
+                  .authenticated();
+            })
+        .oauth2ResourceServer(
+            resourceServer -> {
+              resourceServer.jwt(
+                  (jwt) ->
+                      jwt.decoder(jwtDecoder())
+                          .jwtAuthenticationConverter(this.jwtAuthenticatorConverter()));
+            });
     return http.build();
-  }
-
-  private void sessionManagementConfiguration(SessionManagementConfigurer<HttpSecurity> session) {
-    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-  }
-
-  private void authorizeHttpRequestsConfiguration(
-      AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry
-          auth) {
-    auth.requestMatchers("/api/auth/**").permitAll();
-  }
-
-  private void oAuth2ResourceServerConfiguration(
-      OAuth2ResourceServerConfigurer<HttpSecurity> oauth2ResourceServer) {
-    oauth2ResourceServer.jwt(
-        (jwt) ->
-            jwt.decoder(jwtDecoder()).jwtAuthenticationConverter(this.jwtAuthenticatorConverter()));
   }
 
   private JwtAuthenticationConverter jwtAuthenticatorConverter() {
@@ -91,8 +87,8 @@ public class SecurityConfig implements WebMvcConfigurer {
   private JwtDecoder jwtDecoder() {
     return NimbusJwtDecoder.withSecretKey(
             new SecretKeySpec(
-                authenticationConfigProperties.jwtSecret().getBytes(StandardCharset.UTF_8), "MAC"))
-        .macAlgorithm(MacAlgorithm.HS512)
+                Base64.getDecoder().decode(authenticationConfigProperties.jwtSecret()), "MAC"))
+        .macAlgorithm(MacAlgorithm.HS256)
         .build();
   }
 }

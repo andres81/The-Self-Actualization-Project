@@ -44,14 +44,18 @@ public class CookieUtil {
     return ResponseCookie.from(REFRESH_TOKEN_COOKIE_NAME, refreshToken)
         .secure(true)
         .httpOnly(true)
-        .domain(authenticationConfigProperties.refreshTokenCookieDomain())
+//        .domain(authenticationConfigProperties.refreshTokenCookieDomain())
+//        .domain("localhost")
         .sameSite("Strict")
-        .maxAge(Duration.ofDays(1))
+        .maxAge(Duration.ofMinutes(30L))
         .path(REFRESH_TOKEN_COOKIE_PATH)
         .build();
   }
 
   public Optional<Cookie> findRefreshCookie(Cookie[] cookies) {
+    if (cookies == null || cookies.length == 0) {
+      return Optional.empty();
+    }
     return Arrays.stream(cookies)
         .filter(cookie -> cookie.getName().equals(REFRESH_TOKEN_COOKIE_NAME))
         .findFirst();

@@ -17,17 +17,12 @@
 package nl.andreschepers.the_self_actualization_project.authentication.jwt.data;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface JwtRefreshTokenRepository extends JpaRepository<JwtRefreshTokenEntity, String> {
+public interface JwtRefreshTokenRepository extends JpaRepository<JwtRefreshTokenEntity, UUID> {
 
   List<JwtRefreshTokenEntity> findByUserId(UUID userId);
 
-  Optional<JwtRefreshTokenEntity> findByRefreshToken(String refreshToken);
-
   void deleteAllByUserId(UUID uuid);
-
-  void deleteAllByRefreshToken(String refreshToken);
 }

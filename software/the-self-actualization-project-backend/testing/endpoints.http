@@ -1,2 +1,9 @@
 GET http://localhost:8080/api/jwt-test
 Authorization: Bearer
+
+
+
+### Test refresh token endpoint
+GET http://localhost:8080/api/auth/refreshtoken
+
+

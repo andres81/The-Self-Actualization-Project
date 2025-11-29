@@ -17,13 +17,18 @@
 package nl.andreschepers.the_self_actualization_project.authentication.api.jwt;
 
 import jakarta.servlet.http.HttpServletRequest;
+import java.time.Duration;
+import java.util.Arrays;
 import lombok.RequiredArgsConstructor;
 import nl.andreschepers.the_self_actualization_project.authentication.api.dto.AccessTokenResponseDto;
 import nl.andreschepers.the_self_actualization_project.authentication.api.exception.ForbiddenException;
 import nl.andreschepers.the_self_actualization_project.authentication.api.exception.UnAuthorizedException;
 import nl.andreschepers.the_self_actualization_project.authentication.api.util.CookieUtil;
+import nl.andreschepers.the_self_actualization_project.authentication.bearer.dto.BearerAccessRefreshTokenPairDto;
 import nl.andreschepers.the_self_actualization_project.authentication.jwt.JWTService;
+import nl.andreschepers.the_self_actualization_project.authentication.jwt.exception.JwtServiceRefreshRenewalException;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,15 +51,41 @@ public class JwtRefreshTokenController {
       throw new UnAuthorizedException();
     }
 
-    var accessRefreshTokenPair =
-        jwtService
-            .processRefreshTokenRenewal(jwtCookie.get().getValue())
-            .orElseThrow(ForbiddenException::new);
+    BearerAccessRefreshTokenPairDto accessRefreshTokenPair;
+    try {
+      accessRefreshTokenPair = jwtService.processRefreshTokenRenewal(jwtCookie.get().getValue());
+    } catch (JwtServiceRefreshRenewalException e) {
+      throw new ForbiddenException();
+    }
 
     var cookie = cookieUtil.createRefreshTokenCookie(accessRefreshTokenPair.refreshToken());
 
     return ResponseEntity.ok()
         .header(HttpHeaders.SET_COOKIE, cookie.toString())
         .body(new AccessTokenResponseDto(accessRefreshTokenPair.accessToken()));
+  }
+
+  @GetMapping("/test-cookies")
+  public ResponseEntity<String> testCookieAccess(HttpServletRequest request) {
+    var cookies = request.getCookies();
+
+    return ResponseEntity.ok(Arrays.toString(cookies));
+  }
+
+  @GetMapping("/test-set-cookie")
+  public ResponseEntity<String> testSetCookie(HttpServletRequest request) {
+    var cookie =
+        ResponseCookie.from("COOKIE_TEST", "COOKIE_TEST_VALUE")
+            .secure(false)
+            .httpOnly(true)
+            //        .domain()
+            .sameSite("Lax")
+            .maxAge(Duration.ofDays(1L))
+            //        .path(REFRESH_TOKEN_COOKIE_PATH)
+            .build();
+
+    return ResponseEntity.ok()
+        .header(HttpHeaders.SET_COOKIE, cookie.toString())
+        .body("Cookie set!");
   }
 }

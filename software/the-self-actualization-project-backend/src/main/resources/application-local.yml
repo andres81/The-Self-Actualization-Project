@@ -1,10 +1,18 @@
 spring:
   application:
     name: The Self Actualization Project BE
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  #  datasource:
+#    url: ${DB_URL}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: "jdbc:postgresql://localhost:5455/postgresDB?sslmode=disable&connect_timeout=5"
+    username: "postgresUser"
+    password: "postgresPW"
+
 
 logging:
   level:
@@ -15,4 +23,5 @@ logging:
 app:
   auth:
     jwt-secret: ${JWT_SECRET}
-    refresh-token-cookie-domain: localhost
+    refresh-token-cookie-domain: 127.0.0.1
+    googleClientAudience: ${GOOGLE_CLIENT_AUDIENCE}

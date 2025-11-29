@@ -16,17 +16,22 @@
 
 package nl.andreschepers.the_self_actualization_project.authentication.jwt;
 
+import com.nimbusds.jwt.JWTClaimNames;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import java.text.ParseException;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import nl.andreschepers.the_self_actualization_project.authentication.bearer.AuthBearerTokenCreationService;
+import nl.andreschepers.the_self_actualization_project.authentication.bearer.dto.BearerAccessRefreshTokenPairDto;
+import nl.andreschepers.the_self_actualization_project.authentication.jwt.data.JwtRefreshTokenEntity;
+import nl.andreschepers.the_self_actualization_project.authentication.jwt.data.JwtRefreshTokenEntity.Status;
 import nl.andreschepers.the_self_actualization_project.authentication.jwt.data.JwtRefreshTokenRepository;
-import nl.andreschepers.the_self_actualization_project.authentication.jwt.dto.JWTAccessRefreshTokenPairDto;
-import nl.andreschepers.the_self_actualization_project.user.service.UserService;
-import nl.andreschepers.the_self_actualization_project.user.service.dto.UserDto;
-import org.apache.commons.lang3.StringUtils;
+import nl.andreschepers.the_self_actualization_project.authentication.jwt.exception.JwtServiceRefreshRenewalException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -34,62 +39,72 @@ import org.springframework.stereotype.Service;
 public class JWTService {
 
   private final JwtRefreshTokenRepository jwtRefreshTokenRepository;
-  private final JwtHmacService jwtHmacService;
-  private final UserService userService;
+  private final AuthBearerTokenCreationService authBearerTokenCreationService;
 
-  public JWTAccessRefreshTokenPairDto createAccessAndRefreshToken(UserDto userDto) {
-
-    var accessToken = jwtHmacService.createHmacSignedAccessTokenJwt(userDto.userId().toString());
-    var refreshToken =
-        jwtHmacService.createHmacSignedRefreshTokenJwtWithSubject(userDto.userId().toString());
-
-    return new JWTAccessRefreshTokenPairDto(accessToken, refreshToken);
+  @Transactional
+  public UUID createRefreshTokenRegistration(UUID userId) {
+    jwtRefreshTokenRepository
+        .findByUserId(userId)
+        .forEach(jwtRefreshTokenEntity -> jwtRefreshTokenEntity.setStatus(Status.INACTIVE));
+    return jwtRefreshTokenRepository.save(new JwtRefreshTokenEntity(userId)).getId();
   }
 
-  public Optional<JWTAccessRefreshTokenPairDto> processRefreshTokenRenewal(String refreshToken) {
+  @Transactional
+  public BearerAccessRefreshTokenPairDto processRefreshTokenRenewal(String refreshToken) {
 
-    var jwt = jwtHmacService.verifyHmacSignedRefreshTokenJwt(refreshToken);
-    if (jwt.isEmpty()) {
-      return Optional.empty();
-    }
+    var verifiedJwt = authBearerTokenCreationService.verifyHmacSignedTokenJwt(refreshToken);
 
-    String subject;
+    var jwtClaimsSet = retrieveJwtClaimSet(verifiedJwt);
+
+    var refreshTokenEntity = retrieveRefreshToken(jwtClaimsSet);
+
+    refreshTokenEntity.setStatus(Status.INACTIVE);
+
+    var newRefreshTokenId = createRefreshTokenRegistration(refreshTokenEntity.getUserId());
+
+    return authBearerTokenCreationService.createAccessAndRefreshToken(
+        refreshTokenEntity.getUserId().toString(), newRefreshTokenId);
+  }
+
+  private UUID obtainUserId(JWTClaimsSet jwtClaimSet) {
+    var subject = getClaimFromJwt(jwtClaimSet, JWTClaimNames.SUBJECT);
+    return UUID.fromString((String) subject);
+  }
+
+  private JWTClaimsSet retrieveJwtClaimSet(SignedJWT verifiedJwt) {
     try {
-      subject = jwt.get().getJWTClaimsSet().getSubject();
+      return verifiedJwt.getJWTClaimsSet();
     } catch (ParseException e) {
-      return Optional.empty();
+      throw new JwtServiceRefreshRenewalException("Could not obtain JWTClaimsSet from JWT.");
     }
+  }
 
-    if (StringUtils.isBlank(subject)) {
-      return Optional.empty();
-    }
+  private UUID obtainRefreshTokenId(JWTClaimsSet jwtClaimSet) {
+    var refreshTokenId =
+        getClaimFromJwt(jwtClaimSet, AuthBearerTokenCreationService.REFRESH_TOKEN_ID_CLAIM_NAME);
+    return UUID.fromString((String) refreshTokenId);
+  }
 
-    UUID userId;
-    try {
-      userId = UUID.fromString(subject);
-    } catch (IllegalArgumentException ex) {
-      // The subject claim is not a UUID, abnormal situation that should never happen! Was it a
-      // forged refresh token?
-      log.error("Illegal state: JWT contains non UUID subject claim: [{}]", subject);
-      jwtRefreshTokenRepository.deleteAllByRefreshToken(refreshToken);
-      return Optional.empty();
-    }
+  private JwtRefreshTokenEntity retrieveRefreshToken(JWTClaimsSet jwtClaimsSet) {
+    var userId = obtainUserId(jwtClaimsSet);
+    var refreshTokenId = obtainRefreshTokenId(jwtClaimsSet);
+    return jwtRefreshTokenRepository
+        .findById(refreshTokenId)
+        .orElseThrow(
+            () -> {
+              log.error("SEVERE: Unknown refresh token used to authenticate.");
+              jwtRefreshTokenRepository.deleteAllByUserId(userId);
+              return new JwtServiceRefreshRenewalException(
+                  "Refresh token not present in database, unauthorized.");
+            });
+  }
 
-    var refreshTokenEntity = jwtRefreshTokenRepository.findByRefreshToken(refreshToken);
-    if (refreshTokenEntity.isEmpty()) {
-      // Token reuse
-      jwtRefreshTokenRepository.deleteAllByUserId(userId);
-      return Optional.empty();
-    }
-
-    var userDto = userService.findByUserId(userId);
-    if (userDto.isEmpty()) {
-      // No user found, for the userId present in the refresh token, so remove all refresh tokens
-      // stored with the same userId.
-      jwtRefreshTokenRepository.deleteAllByUserId(userId);
-      return Optional.empty();
-    }
-
-    return Optional.of(createAccessAndRefreshToken(userDto.get()));
+  private Object getClaimFromJwt(JWTClaimsSet jwtClaimsSet, String claimName) {
+    return Optional.ofNullable(jwtClaimsSet.getClaim(claimName))
+        .orElseThrow(
+            () -> {
+              log.error("Could not obtain claim from jwt.");
+              return new JwtServiceRefreshRenewalException("Could not obtain claim from jwt.");
+            });
   }
 }

@@ -26,10 +26,6 @@ public record UserDto(
     String lastName,
     String pictureUrl) {
 
-  public UserDto(UUID userId) {
-    this(userId, null, null, null, null, null);
-  }
-
   public UserDto(UUID userId, String subject) {
     this(userId, subject, null, null, null, null);
   }

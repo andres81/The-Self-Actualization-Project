@@ -1,12 +1,17 @@
 spring:
   application:
     name: The Self Actualization Project BE
+#  datasource:
+#    url: ${DB_URL}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: "jdbc:postgresql://localhost:5455/postgres?sslmode=disable&connect_timeout=5"
+    username: "postgresUser"
+    password: "postgresPW"
 
 app:
   auth:
     jwt-secret: ${JWT_SECRET}
     refresh-token-cookie-domain: https://the-self-actualization-project.com
+    googleClientAudience: ${GOOGLE_CLIENT_AUDIENCE}

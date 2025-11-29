@@ -19,6 +19,7 @@ package nl.andreschepers.the_self_actualization_project.user.service;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import nl.andreschepers.the_self_actualization_project.common.UUIDV7IdGenerator;
 import nl.andreschepers.the_self_actualization_project.user.data.UserEntity;
 import nl.andreschepers.the_self_actualization_project.user.data.UserRepository;
 import nl.andreschepers.the_self_actualization_project.user.service.dto.UserDto;
@@ -30,9 +31,11 @@ public class UserService {
 
   private final UserRepository userRepository;
 
-  public UserDto findOrRegisterBySubject(String subject) {
+  public UserDto findOrRegisterBySubject(UserLoginDto userLoginDto) {
     var userEntity =
-        userRepository.findBySubject(subject).orElseGet(() -> createUserEntity(subject));
+        userRepository
+            .findBySubject(userLoginDto.subject)
+            .orElseGet(() -> createUserEntity(userLoginDto));
     return new UserDto(userEntity.getId(), userEntity.getSubject());
   }
 
@@ -42,9 +45,13 @@ public class UserService {
         .map(userEntity -> new UserDto(userEntity.getId(), userEntity.getSubject()));
   }
 
-  private UserEntity createUserEntity(String subject) {
+  private UserEntity createUserEntity(UserLoginDto userLoginDto) {
     var newUser = new UserEntity();
-    newUser.setSubject(subject);
+    newUser.setSubject(userLoginDto.subject());
+    newUser.setEmail(userLoginDto.email());
+    newUser.setUsername(UUID.randomUUID().toString());
     return userRepository.save(newUser);
   }
+
+  public record UserLoginDto(String subject, String email) {}
 }

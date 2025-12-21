@@ -1,5 +1,11 @@
 .App {
-  text-align: center;
+  /*text-align: center;*/
+  color: #5a5c69 !important;
+}
+
+.container-fluid {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .App-logo {
@@ -36,3 +42,5 @@
     transform: rotate(360deg);
   }
 }
+
+

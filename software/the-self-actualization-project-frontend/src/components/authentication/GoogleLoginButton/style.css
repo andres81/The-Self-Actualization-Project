@@ -1,0 +1,9 @@
+.google-login-button-wrapper {
+  position: relative;
+  top: 50%;
+  transform: translateY(-100px);
+}
+
+.google-login-button-wrapper iframe {
+  margin: auto !important;
+}

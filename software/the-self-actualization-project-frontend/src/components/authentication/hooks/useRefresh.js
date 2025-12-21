@@ -24,7 +24,7 @@ const useRefresh = () => {
       });
       return response.data.accessToken;
     } catch (error) {
-      return Promise.reject(error);
+      console.info('Refreshing failed: ', error.message);
     }
   };
 };

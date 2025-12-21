@@ -7,3 +7,6 @@ Authorization: Bearer
 GET http://localhost:8080/api/auth/refreshtoken
 
 
+### Test refresh token endpoint
+GET http://localhost:8080/api/user/info
+

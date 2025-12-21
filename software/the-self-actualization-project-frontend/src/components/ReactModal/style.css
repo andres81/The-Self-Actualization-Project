@@ -1,0 +1,24 @@
+.react-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.react-modal .react-modal-close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0;
+  transform: translate(-50%, 50%);
+  color: aliceblue;
+  cursor: pointer;
+}
+
+.react-modal .react-modal-close-button:hover::before {
+  background: cyan;
+  border-radius: 50%;
+}

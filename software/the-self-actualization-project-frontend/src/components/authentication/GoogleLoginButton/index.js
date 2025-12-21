@@ -2,7 +2,9 @@ import {useContext, useEffect, useRef} from "react";
 import axios from "axios";
 import AuthContext from "../AuthContext";
 
-export default function GoogleLoginButton() {
+import './style.css';
+
+export default function GoogleLoginButton(props) {
 
   let GoogleLoginRef = useRef(null);
   const {
@@ -20,6 +22,9 @@ export default function GoogleLoginButton() {
             return {...prev, accessToken: response.data.accessToken}
           });
         });
+    if (props?.afterLoginCallback) {
+      props?.afterLoginCallback();
+    }
   }
 
   function loadGoogle() {
@@ -48,6 +53,6 @@ export default function GoogleLoginButton() {
   });
 
   return (
-      <div ref={GoogleLoginRef}></div>
+      <div className="google-login-button-wrapper" ref={GoogleLoginRef}></div>
   )
 };

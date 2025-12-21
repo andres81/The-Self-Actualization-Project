@@ -1,0 +1,26 @@
+.top-nav-user-information {
+  color: #858796 !important;
+  cursor: pointer;
+}
+
+.top-nav-user-information > .nav-link {
+  color: darkblue !important;
+}
+
+.top-nav-user-information .top-nav-user-information-popup {
+  right: 0;
+  left: initial;
+  margin-top: 15px;
+}
+
+.dropdown.no-arrow .dropdown-toggle::after {
+  display: none;
+}
+
+.top-nav-user-information .dropdown-item {
+  color: blue;
+}
+
+.top-nav-user-information .faicon {
+  color: deepskyblue;
+}

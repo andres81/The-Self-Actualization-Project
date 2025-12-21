@@ -16,14 +16,16 @@
 
 package nl.andreschepers.the_self_actualization_project.user.service;
 
-import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
-import nl.andreschepers.the_self_actualization_project.common.UUIDV7IdGenerator;
 import nl.andreschepers.the_self_actualization_project.user.data.UserEntity;
 import nl.andreschepers.the_self_actualization_project.user.data.UserRepository;
+import nl.andreschepers.the_self_actualization_project.user.exception.UserException;
 import nl.andreschepers.the_self_actualization_project.user.service.dto.UserDto;
+import nl.andreschepers.the_self_actualization_project.user.service.dto.UserInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,10 +41,15 @@ public class UserService {
     return new UserDto(userEntity.getId(), userEntity.getSubject());
   }
 
-  public Optional<UserDto> findByUserId(UUID userId) {
+  public UserInfo getUserInfoByUserId(String userId) {
+    if (StringUtils.isBlank(userId)) {
+      throw new UserException("user id is empty");
+    }
+    var userIdUUID = UUID.fromString(userId);
     return userRepository
-        .findById(userId)
-        .map(userEntity -> new UserDto(userEntity.getId(), userEntity.getSubject()));
+        .findById(userIdUUID)
+        .map(userEntity -> new UserInfo(userEntity.getUsername()))
+        .orElseThrow(() -> new UserException("Could not find user"));
   }
 
   private UserEntity createUserEntity(UserLoginDto userLoginDto) {
@@ -51,6 +58,20 @@ public class UserService {
     newUser.setEmail(userLoginDto.email());
     newUser.setUsername(UUID.randomUUID().toString());
     return userRepository.save(newUser);
+  }
+
+  @Transactional
+  public void updateUsername(String userId, String newUsername) {
+    if (StringUtils.isBlank(userId)) {
+      throw new UserException("user id is empty");
+    }
+    var userIdUUID = UUID.fromString(userId);
+    var user = userRepository.findById(userIdUUID).orElseThrow(() -> new UserException("Could not find user"));
+    user.setUsername(newUsername);
+  }
+
+  public boolean doesUsernameExist(String username) {
+    return userRepository.existsByUsername(username);
   }
 
   public record UserLoginDto(String subject, String email) {}

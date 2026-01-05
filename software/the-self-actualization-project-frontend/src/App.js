@@ -16,6 +16,7 @@ function App() {
 
             <Route path="profile" element={<Profile/>}/>
 
+
             {/*<Route index element={<Home />} />*/}
             {/*<Route path="about" element={<About />} />*/}
 

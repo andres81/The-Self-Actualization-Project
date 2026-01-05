@@ -1,0 +1,103 @@
+databaseChangeLog:
+  - changeSet:
+      id: Create user table
+      author: André Schepers
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: subject
+                  type: TEXT
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: username
+                  type: TEXT
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: email
+                  type: TEXT
+              - column:
+                  name: provider
+                  type: TEXT
+            tableName: user_account
+        - createIndex:
+            columns:
+              - column:
+                  descending: true
+                  name: subject
+              - column:
+                  descending: true
+                  name: id
+            indexName: idx_user_account_subject_id
+            tableName: user_account
+        - createIndex:
+            columns:
+              - column:
+                  descending: true
+                  name: username
+              - column:
+                  descending: true
+                  name: id
+            indexName: idx_user_account_username_id
+            tableName: user_account
+        - createIndex:
+            columns:
+              - column:
+                  descending: true
+                  name: email
+              - column:
+                  descending: true
+                  name: id
+            indexName: idx_user_account_email_id
+            tableName: user_account
+  - changeSet:
+      id: Create JWT refresh token table
+      author: André Schepers
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: TEXT
+                  constraints:
+                    nullable: false
+            tableName: jwt_refresh_token_entity
+        - createIndex:
+            columns:
+              - column:
+                  descending: true
+                  name: user_id
+              - column:
+                  descending: true
+                  name: id
+            indexName: idx_jwt_refresh_token_user_id_refresh_token_id
+            tableName: jwt_refresh_token_entity

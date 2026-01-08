@@ -6,6 +6,21 @@ under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY
 
 # The Self-Actualization Project backend
 
+## Appendix A: Local setup
+
+### Docker
+
+To run Postgres, use the follow command:
+
+```Bash
+# Source - https://stackoverflow.com/a
+# Posted by MrGreg, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-01-06, License - CC BY-SA 4.0
+
+docker run --name postgreslocal -d -p 5432:5432 -e POSTGRES_PASSWORD=postgrespw -e POSTGRES_USERNAME=postgres postgres:alpine
+
+```
+
 ## Appendix B: Utils
 
 To create a HMAC key, the following code can be used:

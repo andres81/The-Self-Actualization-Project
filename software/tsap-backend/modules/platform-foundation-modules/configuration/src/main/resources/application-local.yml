@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: The Self Actualization Project BE
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE

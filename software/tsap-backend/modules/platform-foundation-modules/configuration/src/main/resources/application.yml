@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: The Self Actualization Project BE
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+app:
+  auth:
+    jwt-secret: ${JWT_SECRET}
+    refresh-token-cookie-domain: https://the-self-actualization-project.com
+    googleClientAudience: ${GOOGLE_CLIENT_AUDIENCE}

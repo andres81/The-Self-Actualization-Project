@@ -1,0 +1,37 @@
+/*!
+ * Copyright 2024 - 2026 André Schepers
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+$dialogue-editor-word-translation-block-color: #2673BE !default;
+$dialogue-editor-word-translation-block-bgcolor: #FEFEFE !default;
+$dialogue-editor-word-translator-row-input-color: #ffd662ff !default;
+$dialogue-editor-word-translator-row-input-bgcolor: #00539cff !default;
+
+.dialogue-editor-word-translation-block {
+  //     background-color: #101820FF;
+  //     color: #FEE715FF;
+  color: $dialogue-editor-word-translation-block-color;
+  background-color: $dialogue-editor-word-translation-block-bgcolor;
+}
+
+.dialogue-editor-word-translator-row {
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  input, input:focus {
+    color: $dialogue-editor-word-translator-row-input-color;
+    background-color: $dialogue-editor-word-translator-row-input-bgcolor;
+    border: none;
+  }
+}

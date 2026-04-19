@@ -1,0 +1,85 @@
+/*!
+ * Copyright 2024 - 2026 André Schepers
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+@use 'EditorRowLineEditor/style';
+@use 'EditorRowWordTranslator/style' as wordTranslator;
+
+.dialogue-editor-row {
+  margin: 15px;
+  padding: 5px;
+  background-color: gray;
+}
+
+.dialogue-editor-row-input {
+  margin: 5px;
+}
+
+.dialogue-editor-row-input {
+  textarea, input {
+    color: white;
+    background-color: teal;
+    border: none;
+  }
+
+  textarea::placeholder, input::placeholder {
+    color: coral;
+    opacity: 1;
+  }
+
+  textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: white;
+  }
+
+  textarea::-ms-input-placeholder, input::-ms-input-placeholder { /* Microsoft Edge */
+    color: white;
+  }
+
+  textarea:focus, input:focus {
+    box-shadow: none;
+    color: white;
+    background-color: teal;
+  }
+
+  textarea::-webkit-scrollbar-corner {
+    background-color: teal;
+  }
+
+  textarea::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  textarea::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px coral;
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  textarea::-webkit-scrollbar-thumb {
+    background: teal;
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px coral;
+  }
+
+  /* Handle on hover */
+  textarea::-webkit-scrollbar-thumb:hover {
+    background: teal;
+  }
+}
+
+.dialogue-editor-row-controls {
+  position: relative;
+}
+

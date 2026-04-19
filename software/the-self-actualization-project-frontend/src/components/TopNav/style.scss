@@ -1,0 +1,17 @@
+.navbar {
+  margin-bottom: 1.5rem !important;
+  padding-left: 1rem;
+}
+
+
+.nav-link.active {
+  color: #20166f;
+  font-style: italic;
+  text-shadow: 2px 2px 0 #bcbcbc, 4px 4px 0 #9c9c9c;
+
+  &:focus {
+    color: #20166f;
+    font-style: italic;
+  }
+}
+

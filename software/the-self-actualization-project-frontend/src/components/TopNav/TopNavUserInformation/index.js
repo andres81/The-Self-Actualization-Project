@@ -1,6 +1,6 @@
 import './style.css'
 import useAxiosHttpClient from "../../../httpclient/useApiHttpClient";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect} from "react";
 import {NavLink} from "react-router";
 import AuthContext from "../../authentication/AuthContext";
 
@@ -34,7 +34,7 @@ function TopNavUserInformation() {
         <ul className="dropdown-menu top-nav-user-information-popup"
             aria-labelledby="navbarDropdown">
           <li>
-            <NavLink className="dropdown-item" activeClassName="active"
+            <NavLink className="dropdown-item" activeclassname="active"
                      to="/profile">
               <i
                   className="fas fa-user fa-sm fa-fw mr-2 faicon"></i> Profile

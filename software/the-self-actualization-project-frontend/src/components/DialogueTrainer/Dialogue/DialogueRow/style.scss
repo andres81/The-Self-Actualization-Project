@@ -1,0 +1,167 @@
+/*!
+ * Copyright 2024 - 2025 André Schepers
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+@import './DialogueRowModalContent/style.scss';
+
+$name-color-1: white;
+$name-color-2: #692c6a;
+$myColor: white;
+$myColor2: blue;
+
+.ReactModal__Overlay {
+
+  z-index: 1;
+
+  .modal-inner {
+    position: absolute;
+    inset: 10px;
+    border: 1px solid rgb(204, 204, 204);
+    background: rgb(255, 255, 255);
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 10px;
+    color: white;
+    background-color: teal;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #065a5a;
+      border-radius: 20px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: white;
+    }
+
+    table {
+      color: #2673BE;
+      background-color: #FEFEFE;
+    }
+  }
+}
+
+.dialogue-row {
+
+  margin-top: 10px;
+  margin-bottom: 12px;
+
+  p {
+    position: relative;
+    padding: 5px;
+    padding-left: 29px;
+    margin: 0px;
+  }
+
+  .dialogue-name {
+    padding-left: 0px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+
+  .dialogue-text {
+
+    position: relative;
+    min-height: 30px;
+    padding-right: 35px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+    .dialogue-row-audio-play-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 15px;
+      width: initial;
+      color: purple;
+    }
+
+    .dialogue-row-audio-play-button:hover {
+      color: #ef31ef;
+    }
+
+    .dialogue-row-audio-play-button:active {
+      color: #b540b5;
+    }
+
+    .base64-info-icon {
+      font-size: 18px;
+      filter: drop-shadow(1px 1px 2px black);
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      left: 5px;
+      transform: translateY(-50%);
+    }
+
+    .base64-info-icon:hover {
+      border: solid 1px #00d7ec;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+
+  .dialogue-text-translation {
+    color: mediumvioletred
+  }
+}
+
+.dialogue-modal-close-button-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.dialogue-row-0 .dialogue-text {
+  color: #fff !important;
+  background-color: #607d8b !important;
+
+  .dialogue-text-translation {
+    color: #fbff00;
+  }
+}
+
+.dialogue-row-1 .dialogue-name {
+  background-color: #8abf8a;
+  color: $name-color-1;
+}
+
+.dialogue-row-1 .dialogue-text {
+  color: $myColor2;
+  background-color: #98d498;
+}
+
+.dialogue-row-2 .dialogue-name {
+  background-color: #dede83;
+  color: $name-color-2;
+}
+
+.dialogue-row-2 .dialogue-text {
+  color: $myColor2;
+  background-color: #ffffb8;
+}
+
+.dialogue-row-3 .dialogue-name {
+  background-color: #a9a6c5;
+  color: $myColor;
+}
+
+.dialogue-row-3 .dialogue-text {
+  color: $myColor2;
+  background-color: #cecaf1;
+}

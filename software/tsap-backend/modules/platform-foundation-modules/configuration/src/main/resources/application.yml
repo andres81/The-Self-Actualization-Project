@@ -1,6 +1,8 @@
 spring:
   application:
     name: The Self Actualization Project BE
+  liquibase:
+    enabled: true
   datasource:
     url: ${DB_URL}
     username: ${DB_USERNAME}

@@ -15,14 +15,24 @@
  */
 
 import './App.css';
-import TopNav from "./components/TopNav";
+import TopNav from "./components/webpage-components/TopNav";
 import {Route, Routes} from "react-router";
 import Profile from "./components/user/Profile";
-import MainContent from "./components/maincontent";
-import Home from "./components/Home";
-import Dialogue from "./components/DialogueTrainer/Dialogue";
-import Footer from "./components/Footer";
-import DialogueEditor from "./components/DialogueTrainer/DialogueEditor";
+import MainContent from "./components/webpage-components/maincontent";
+import Home from "./components/webpage-components/Home";
+import Dialogue
+    from "./components/webpage-components/TheBeast/DialogueTrainer/Dialogue";
+import Footer from "./components/webpage-components/Footer";
+import DialogueEditor
+    from "./components/webpage-components/TheBeast/DialogueTrainer/DialogueEditor";
+import TheBeast from "./components/webpage-components/TheBeast";
+import About from "./components/webpage-components/About";
+import QuestionnaireUtil
+    from "./components/webpage-components/TheBeast/QuestionnaireUtil";
+import QUAbout
+    from "./components/webpage-components/TheBeast/QuestionnaireUtil/QUAbout";
+import QuestionnaireTrainer
+    from "./components/webpage-components/TheBeast/QuestionnaireUtil/QuestionnaireTrainer";
 
 function App() {
     return (
@@ -35,11 +45,23 @@ function App() {
 
                     <Route path="profile" element={<Profile/>}/>
 
-                    <Route path="dialogue-trainer"
+                    <Route path="about" element={<About/>}/>
+
+                    <Route path="the-beast/about"
+                           element={<TheBeast/>}/>
+
+                    <Route path="the-beast/dialogue-trainer"
                            element={<Dialogue showLoadSaveButtons={true}/>}/>
 
-                    <Route path="dialogue-editor"
-                           element={<DialogueEditor showLoadSaveButtons={true}/>}/>
+                    <Route path="the-beast/dialogue-editor"
+                           element={<DialogueEditor
+                               showLoadSaveButtons={true}/>}/>
+
+                    <Route path="the-beast/questionnaire-util"
+                           element={<QuestionnaireUtil/>}>
+                        <Route index element={<QUAbout />} />
+                        <Route path="trainer" element={<QuestionnaireTrainer />} />
+                    </Route>
 
                     {/*<Route index element={<Home />} />*/}
                     {/*<Route path="about" element={<About />} />*/}
@@ -56,6 +78,7 @@ function App() {
                     {/*</Route>*/}
                 </Routes>
             </MainContent>
+            {/*<TTSComponentTester/>*/}
             <Footer/>
         </div>
     );

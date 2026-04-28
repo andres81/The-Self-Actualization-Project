@@ -14,18 +14,13 @@
  * limitations under the License.
  */
 
-import './style.css'
-
-function ReactModal(props) {
+function MainContent(props) {
 
     return (
-        <div className="react-modal">
-            <i
-                onClick={() => props.closeModalCallback()}
-                className="fa-regular fa-circle-xmark fa-3x react-modal-close-button"></i>
+        <div>
             {props.children}
         </div>
-    );
+    )
 }
 
-export default ReactModal;
+export default MainContent

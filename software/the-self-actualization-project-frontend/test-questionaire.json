@@ -1,0 +1,86 @@
+[
+  {
+    "json-choice-interaction-item": {
+      "id": "019dc474-3556-73fb-b173-cbc2a9a9c1c6",
+      "cardinality": "SINGLE",
+      "question": "What is your favorite color?",
+      "max-choices": 1,
+      "correct-responses": [
+        "red"
+      ],
+      "options": [
+        {
+          "identifier": "red",
+          "label": "Red"
+        },
+        {
+          "identifier": "blue",
+          "label": "Blue"
+        },
+        {
+          "identifier": "green",
+          "label": "Green"
+        }
+      ]
+    }
+  },
+  {
+    "json-choice-interaction-item": {
+      "id": "019dc474-ea9d-74a7-a431-c27eabf92e13",
+      "cardinality": "SINGLE",
+      "question": "Do fish swim?",
+      "max-choices": 1,
+      "correct-responses": [
+        "true"
+      ],
+      "options": [
+        {
+          "identifier": "true",
+          "label": "True"
+        },
+        {
+          "identifier": "false",
+          "label": "False"
+        }
+      ]
+    }
+  },
+  {
+    "json-choice-interaction-item": {
+      "id": "019dc474-ea9d-74a7-a431-c27eabf92e13",
+      "cardinality": "MULTIPLE",
+      "question": "Which of the following elements are used to form water?",
+      "max-choices": 2,
+      "correct-responses": [
+        "H",
+        "O"
+      ],
+      "options": [
+        {
+          "identifier": "H",
+          "label": "Hydrogen"
+        },
+        {
+          "identifier": "He",
+          "label": "Helium"
+        },
+        {
+          "identifier": "C",
+          "label": "Carbon"
+        },
+        {
+          "identifier": "O",
+          "label": "Oxygen"
+        },
+        {
+          "identifier": "N",
+          "label": "Nitrogen"
+        },
+        {
+          "identifier": "Cl",
+          "label": "Chlorine"
+        }
+      ]
+    }
+  }
+]

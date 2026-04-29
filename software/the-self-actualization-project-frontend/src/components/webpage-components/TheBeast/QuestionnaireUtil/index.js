@@ -28,13 +28,13 @@ function QuestionnaireUtil() {
                                 <ul className="dropdown-menu"
                                     aria-labelledby="navbarDropdownMenuLink">
                                     <li className="nav-item">
-                                        <NavLink to="./trainer"
+                                        <NavLink to="./uc1-questionnaire-trainer"
                                                  className={({isActive}) => ('dropdown-item' + (isActive ? ' active' : ''))}>
                                             UC1: Questionnaire Trainer
                                         </NavLink>
                                     </li>
                                     <li className="nav-item">
-                                        <NavLink to="./trainer"
+                                        <NavLink to="./uc2-attitude-test-questionnaire"
                                                  className={({isActive}) => ('dropdown-item' + (isActive ? ' active' : ''))}>
                                             UC2: Attitude Test Questionnaire
                                         </NavLink>
@@ -59,8 +59,10 @@ function QuestionnaireUtil() {
                                 </ul>
                             </li>
                             <li className="nav-item">
-                                <NavLink to={"./software-design"} className="nav-link"
-                                         href="#">Software Design</NavLink>
+                                <NavLink to="./software-design"
+                                         className={({isActive}) => ('nav-link' + (isActive ? ' active' : ''))}>
+                                    Software Design
+                                </NavLink>
                             </li>
                         </ul>
                     </div>

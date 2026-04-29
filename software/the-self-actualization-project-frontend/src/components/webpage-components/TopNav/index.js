@@ -91,6 +91,13 @@ function TopNav() {
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <NavLink
+                            to="/resources"
+                            className={({isActive}) => ('nav-link' + (isActive ? ' active' : ''))}>
+                            Resources
+                        </NavLink>
+                    </li>
                 </ul>
             </div>
 

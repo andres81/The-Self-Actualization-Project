@@ -33,6 +33,13 @@ import QUAbout
     from "./components/webpage-components/TheBeast/QuestionnaireUtil/QUAbout";
 import QuestionnaireTrainer
     from "./components/webpage-components/TheBeast/QuestionnaireUtil/QuestionnaireTrainer";
+import UC1QuestionnaireTrainer
+    from "./components/webpage-components/TheBeast/QuestionnaireUtil/UseCases/UC1QuestionnaireTrainer";
+import UC2AttitudeTestQuestionnaire
+    from "./components/webpage-components/TheBeast/QuestionnaireUtil/UseCases/UC2AttitudeTestQuestionnaire";
+import SoftwareDesign
+    from "./components/webpage-components/TheBeast/QuestionnaireUtil/SoftwareDesign";
+import Resources from "./components/webpage-components/Resources";
 
 function App() {
     return (
@@ -61,7 +68,12 @@ function App() {
                            element={<QuestionnaireUtil/>}>
                         <Route index element={<QUAbout />} />
                         <Route path="trainer" element={<QuestionnaireTrainer />} />
+                        <Route path="uc1-questionnaire-trainer" element={<UC1QuestionnaireTrainer />} />
+                        <Route path="uc2-attitude-test-questionnaire" element={<UC2AttitudeTestQuestionnaire />} />
+                        <Route path="software-design" element={<SoftwareDesign />} />
                     </Route>
+
+                    <Route path="resources" element={<Resources />} />
 
                     {/*<Route index element={<Home />} />*/}
                     {/*<Route path="about" element={<About />} />*/}

@@ -1,75 +1,49 @@
-import ItemEntry from "./ItemEntry";
+import {useState} from "react";
+import {State} from "./state-machine";
+import ItemOptionsBlock from "./ItemOptionsBlock";
+import ItemSubmitButton from "./ItemSubmitButton";
+import ItemContinueButton from "./ItemContinueButton";
+import ItemFeedbackSection from "./ItemFeedbackSection";
 
 function ItemRenderer(props) {
 
-    var type = props.itemEntryType;
-    var value = props.itemEntryValue
-    var text = props.itemEntryText
+    const [stateMachineState, setStateMachineState] = useState(State.INITIAL_STATE);
+    const [chosenOptions, setChosenOptions] = useState([]);
 
+    const handleSubmit = () => {
+        setStateMachineState(State.SUBMITTED);
+    }
+
+    const handleContinue = () => {
+        setStateMachineState(State.CONTINUED);
+        props.continueCallback(chosenOptions);
+    }
+
+    const optionsChangeCallback = (newOptions) => {
+        if (newOptions.length < 1) {
+            setStateMachineState(State.INITIAL_STATE)
+        } else if (stateMachineState === State.INITIAL_STATE) {
+            setStateMachineState(State.ANSWER_CHOSEN);
+        }
+        setChosenOptions(newOptions);
+    }
 
     return (
-        <div className="item-renderer">
-            <p>Question?</p>
-            <div>
-                <ul className="list-group">
-                    <ItemEntry itemEntryData={{"type": "checkbox", "value": "", "text": "First checkbox"}}/>
-                    <li className="list-group-item">
-                        <input className="form-check-input me-1" type="checkbox"
-                               value="" aria-label="..."/>
-                        First checkbox
-                    </li>
-                    <li className="list-group-item">
-                        <input className="form-check-input me-1" type="checkbox"
-                               value="" aria-label="..."/>
-                        Second checkbox
-                    </li>
-                    <li className="list-group-item">
-                        <input className="form-check-input me-1" type="checkbox"
-                               value="" aria-label="..."/>
-                        Third checkbox
-                    </li>
-                    <li className="list-group-item">
-                        <input className="form-check-input me-1" type="checkbox"
-                               value="" aria-label="..."/>
-                        Fourth checkbox
-                    </li>
-                    <li className="list-group-item">
-                        <input className="form-check-input me-1" type="checkbox"
-                               value="" aria-label="..."/>
-                        Fifth checkbox
-                    </li>
-                </ul>
-            </div>
-            <br />
-            <div>
-                <ul className="list-group">
-                    <li className="list-group-item">
-                        <input className="form-check-input me-1" type="radio"
-                               value="" aria-label="..." name="test-radio"/>
-                        First radio
-                    </li>
-                    <li className="list-group-item">
-                        <input className="form-check-input me-1" type="radio"
-                               value="" aria-label="..." name="test-radio"/>
-                        Second radio
-                    </li>
-                    <li className="list-group-item">
-                        <input className="form-check-input me-1" type="radio"
-                               value="" aria-label="..." name="test-radio"/>
-                        Third radio
-                    </li>
-                    <li className="list-group-item">
-                        <input className="form-check-input me-1" type="radio"
-                               value="" aria-label="..." name="test-radio"/>
-                        Fourth radio
-                    </li>
-                    <li className="list-group-item">
-                        <input className="form-check-input me-1" type="radio"
-                               value="" aria-label="..." name="test-radio"/>
-                        Fifth radio
-                    </li>
-                </ul>
-            </div>
+        <div key={props.id} className="item-renderer">
+            <h3>{props.prompt}</h3>
+            <br/>
+            <ItemOptionsBlock
+                state={stateMachineState}
+                chosenOptions={chosenOptions}
+                optionsChangeCallback={optionsChangeCallback} {...props}/>
+            <br/>
+            <ItemSubmitButton handleSubmit={handleSubmit}
+                              state={stateMachineState}/>
+            <br/>
+            <ItemFeedbackSection state={stateMachineState}/>
+            <br/>
+            <ItemContinueButton state={stateMachineState}
+                                handleContinue={handleContinue}/>
         </div>
     )
 }

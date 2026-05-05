@@ -40,6 +40,8 @@ import UC2AttitudeTestQuestionnaire
 import SoftwareDesign
     from "./components/webpage-components/TheBeast/QuestionnaireUtil/SoftwareDesign";
 import Resources from "./components/webpage-components/Resources";
+import QUQTrainerContainer
+    from "./components/webpage-components/TheBeast/QuestionnaireUtil/QUQTrainerContainer";
 
 function App() {
     return (
@@ -67,7 +69,7 @@ function App() {
                     <Route path="the-beast/questionnaire-util"
                            element={<QuestionnaireUtil/>}>
                         <Route index element={<QUAbout />} />
-                        <Route path="trainer" element={<QuestionnaireTrainer />} />
+                        <Route path="trainer" element={<QUQTrainerContainer />} />
                         <Route path="uc1-questionnaire-trainer" element={<UC1QuestionnaireTrainer />} />
                         <Route path="uc2-attitude-test-questionnaire" element={<UC2AttitudeTestQuestionnaire />} />
                         <Route path="software-design" element={<SoftwareDesign />} />

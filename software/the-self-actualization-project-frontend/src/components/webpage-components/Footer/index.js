@@ -46,7 +46,13 @@ function Footer() {
                        className="nav-link px-2 text-muted">
                         Disclaimer</a>
                 </li>
-
+            </ul>
+            <ul className="nav justify-content-center border-bottom pb-3 mb-3">
+                <li className="nav-item">
+                    <a href="https://github.com/andres81/The-Self-Actualization-Project" rel="noreferrer" target="_blank">
+                        <i className="fa-brands fa-square-github" style={{"fontSize": "30px", "color":"grey"}}></i>
+                    </a>
+                </li>
             </ul>
             <p className="text-center text-muted">© 2026 <Link
                 target="_blank" rel="noopener noreferrer"

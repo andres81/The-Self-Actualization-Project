@@ -1,14 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://www.andreschepers.nl/schemas/json-questionnaire-schema.json",
+  "$id": "https://www.the-self-actualization-project.com/schemas/json-questionnaire-schema.json",
   "title": "JSON Questionnaire Schema",
   "description": "A JSON Questionnaire Schema",
-  "type": "array",
-  "minItems": 1,
-  "items": {
-    "type": "object",
-    "properties": {
-      "json-choice-interaction-item": {
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
         "type": "object",
         "properties": {
           "id": {
@@ -17,14 +17,14 @@
           "cardinality": {
             "type": "string"
           },
-          "question": {
+          "prompt": {
             "type": "string"
           },
-          "max-choices": {
+          "maxChoices": {
             "type": "integer",
             "minimum": 1
           },
-          "correct-responses": {
+          "correctResponses": {
             "type": "array",
             "items": {
               "type": "string"
@@ -54,15 +54,12 @@
         "required": [
           "id",
           "cardinality",
-          "question",
-          "max-choices",
-          "correct-responses",
+          "prompt",
+          "maxChoices",
+          "correctResponses",
           "options"
         ]
       }
-    },
-    "required": [
-      "json-choice-interaction-item"
-    ]
+    }
   }
 }
